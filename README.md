@@ -1,3 +1,14 @@
+---
+title: SARTOR Formal Attire Assessment
+emoji: 🎩
+colorFrom: yellow
+colorTo: gray
+sdk: docker
+app_port: 7860
+pinned: false
+license: mit
+---
+
 # SARTOR — Formal Attire Assessment
 
 A computer-vision app that judges whether a person is dressed **formally** or **casually**,
@@ -64,3 +75,17 @@ Score → **Formal** (≥4) · **Smart Casual** (≥1.5) · **Casual** (<1.5).
 > **Note:** Fashionpedia labels a `shoe` but not "dress shoe vs. sneaker", so footwear
 > is weighted lightly. The strongest signal is the necktie. Women's rules can extend
 > the same table later.
+
+## Deploy on Hugging Face Spaces
+
+This repo is ready to run as a **Docker Space**:
+
+- `Dockerfile` builds the image (installs deps + OpenCV system libs) and runs the app.
+- The app reads `PORT` from the environment; HF Spaces sets it to **7860** (see the
+  `app_port` field in the metadata header above). Locally it defaults to `8080`.
+- The YAML header at the top of this file is the Space configuration HF reads.
+
+To deploy: create a Docker Space, then push this repo to it (Spaces are git repos).
+Free Spaces are CPU-only — image/short-video assessment run fine; live webcam works
+over the HTTPS URL but is limited by CPU + network round-trips.
+
