@@ -195,6 +195,10 @@ if FRONTEND_DIR.exists():
 
 
 if __name__ == "__main__":
+    import os
     import uvicorn
 
-    uvicorn.run("main:app", host="0.0.0.0", port=8080, reload=True)
+    # Local default is 8080; Hugging Face Spaces (Docker) sets PORT=7860.
+    port = int(os.environ.get("PORT", "8080"))
+    reload = os.environ.get("RELOAD", "0") == "1"
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=reload)
