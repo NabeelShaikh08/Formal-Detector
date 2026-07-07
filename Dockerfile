@@ -11,6 +11,8 @@ WORKDIR /app
 
 # Install Python deps first (better layer caching).
 COPY backend/requirements.txt ./backend/requirements.txt
+# CPU-only PyTorch — Spaces free tier has no GPU, and this avoids the ~2.5GB CUDA build.
+RUN pip install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cpu
 RUN pip install --no-cache-dir -r backend/requirements.txt
 
 # Copy the rest of the project (backend, frontend, models, ...).
