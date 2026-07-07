@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# macOS
+.DS_Store
+
+# Runtime artifacts
+runs/
+*.tmp
+
+# Node (if ever added)
+node_modules/

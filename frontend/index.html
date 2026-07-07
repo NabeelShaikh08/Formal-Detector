@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SARTOR — Formal Attire Assessment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Archivo:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=4" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ============================ MASTHEAD ============================ -->
+  <header class="masthead">
+    <div class="mast-rule">
+      <span class="mast-meta">EST. MMXXVI</span>
+      <span class="mast-meta mast-meta--dot">·</span>
+      <span class="mast-meta">A SARTORIAL INSTRUMENT</span>
+      <span class="mast-meta mast-right" id="statusPill">— CALIBRATING</span>
+    </div>
+    <div class="mast-title">
+      <h1 class="wordmark">SARTOR</h1>
+      <p class="lede"><em>An assessment of formality</em>, read from the cut of one's cloth.</p>
+    </div>
+  </header>
+
+  <!-- ============================ MODE INDEX ========================= -->
+  <nav class="modes" role="tablist" aria-label="Assessment modes">
+    <button class="mode is-active" data-mode="still" role="tab">
+      <span class="mode-num">I</span><span class="mode-name">Still</span>
+      <span class="mode-desc">a photograph</span>
+    </button>
+    <button class="mode" data-mode="reel" role="tab">
+      <span class="mode-num">II</span><span class="mode-name">Reel</span>
+      <span class="mode-desc">a short clip</span>
+    </button>
+    <button class="mode" data-mode="live" role="tab">
+      <span class="mode-num">III</span><span class="mode-name">Live</span>
+      <span class="mode-desc">a sitting</span>
+    </button>
+  </nav>
+
+  <!-- ============================ STAGE + VERDICT ==================== -->
+  <main class="floor">
+    <!-- STAGE -->
+    <section class="stage" aria-label="Subject">
+      <div class="stage-frame">
+        <span class="tick tick--tl"></span><span class="tick tick--tr"></span>
+        <span class="tick tick--bl"></span><span class="tick tick--br"></span>
+
+        <!-- STILL -->
+        <div class="panel panel--still is-shown" data-panel="still">
+          <div class="dropzone" id="dropzone">
+            <div class="dz-inner">
+              <div class="dz-mark">✦</div>
+              <p class="dz-title">Present a photograph</p>
+              <p class="dz-sub">Drag an image here, or <span class="link">select a file</span></p>
+            </div>
+            <input type="file" id="imageInput" accept="image/*" hidden />
+          </div>
+          <div class="preview" id="stillPreview" hidden>
+            <img id="stillImg" alt="Subject" />
+            <canvas id="stillCanvas"></canvas>
+          </div>
+        </div>
+
+        <!-- REEL -->
+        <div class="panel panel--reel" data-panel="reel">
+          <div class="dropzone" id="videoDrop">
+            <div class="dz-inner">
+              <div class="dz-mark">▶</div>
+              <p class="dz-title">Submit a short clip</p>
+              <p class="dz-sub">Drag a video here, or <span class="link">select a file</span></p>
+              <p class="dz-fine">Best kept under ~15 seconds</p>
+            </div>
+            <input type="file" id="videoInput" accept="video/*" hidden />
+          </div>
+          <div class="preview" id="reelPreview" hidden>
+            <video id="reelVideo" controls playsinline></video>
+          </div>
+        </div>
+
+        <!-- LIVE -->
+        <div class="panel panel--live" data-panel="live">
+          <div class="live-idle" id="liveIdle">
+            <div class="dz-mark">◉</div>
+            <p class="dz-title">A live sitting</p>
+            <p class="dz-sub">The atelier will observe through your camera.</p>
+            <button class="btn" id="liveStart">Begin the sitting</button>
+          </div>
+          <div class="preview preview--live" id="livePreview" hidden>
+            <video id="liveVideo" autoplay muted playsinline></video>
+            <canvas id="liveCanvas"></canvas>
+            <button class="btn btn--ghost btn--stop" id="liveStop">End sitting</button>
+          </div>
+        </div>
+
+        <div class="stage-status" id="stageStatus" hidden>
+          <span class="spinner"></span><span id="stageStatusText">Assessing…</span>
+        </div>
+      </div>
+      <p class="stage-caption" id="stageCaption">Fig. — the subject under assessment</p>
+    </section>
+
+    <!-- VERDICT -->
+    <aside class="verdict" aria-live="polite">
+      <div class="verdict-head">
+        <span class="section-eyebrow">The Verdict</span>
+        <span class="section-no">N° 01</span>
+      </div>
+
+      <div class="verdict-body" id="verdictBody">
+        <!-- Empty state -->
+        <div class="verdict-empty" id="verdictEmpty">
+          <p class="empty-line">Awaiting subject.</p>
+          <p class="empty-sub">A verdict will be rendered once a garment is observed.</p>
+        </div>
+
+        <!-- Result -->
+        <div class="verdict-result" id="verdictResult" hidden>
+          <p class="verdict-word" id="verdictWord">—</p>
+          <div class="index">
+            <div class="index-row">
+              <span class="index-label">Formality Index</span>
+              <span class="index-value" id="indexValue">00</span>
+            </div>
+            <div class="gauge"><span class="gauge-fill" id="gaugeFill"></span></div>
+          </div>
+
+          <div class="ledger">
+            <div class="ledger-head">
+              <span>Garment Ledger</span><span>Conf.</span>
+            </div>
+            <ul class="ledger-list" id="ledgerList"></ul>
+          </div>
+
+          <div class="notes">
+            <span class="section-eyebrow">Notes from the atelier</span>
+            <div class="notes-body" id="notesBody"></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="colophon">
+    <span>SARTOR</span>
+    <span class="colophon-mid">Detection by YOLO26 · Judgement by rule of hand · BUILD 4</span>
+    <span id="footClasses">— garments</span>
+  </footer>
+
+  <script src="/app.js?v=4"></script>
+</body>
+</html>
