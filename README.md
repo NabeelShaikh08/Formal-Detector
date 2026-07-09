@@ -76,6 +76,27 @@ Score → **Formal** (≥4) · **Smart Casual** (≥1.5) · **Casual** (<1.5).
 > is weighted lightly. The strongest signal is the necktie. Women's rules can extend
 > the same table later.
 
+## 🔭 Future Scope & Applications
+
+This is currently a proof-of-concept, but the approach extends naturally to
+**automated dress-code compliance**:
+
+- **🏦 Corporate & Banking** — integrate with office/branch CCTV to flag whether staff meet formal-attire policy.
+- **🎓 Schools & Institutions** — check uniform / formal-dress compliance at entry gates.
+- **🎩 Events & Venues** — enforce dress codes (black-tie, clubs, ceremonies).
+- **🏨 Retail & Hospitality** — verify staff uniform standards.
+
+**Planned to get there:**
+- Larger, balanced training set (add `coat`, strengthen `jacket` / `tie` / `shoe`)
+- **Multi-person** detection in one frame via a two-stage pipeline (pretrained person
+  detector → per-person garment assessment) — needed for entrances and crowds
+- **Per-person tracking** across video for live monitoring
+- **Configurable dress-code rules** per deployment (bank ≠ school ≠ event)
+
+> *Responsible use: camera-based monitoring should respect privacy, consent, and local
+> regulations — the tool is meant to assist policy checks, not to make automated
+> judgments about individuals.*
+
 ## Deploy on Hugging Face Spaces
 
 This repo is ready to run as a **Docker Space**:
