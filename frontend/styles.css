@@ -306,3 +306,19 @@ body > *:not(.grain) { position: relative; z-index: 2; }
   .verdict { position: static; }
   .mode-desc { display: none; }
 }
+
+/* -- phones -- */
+@media (max-width: 600px) {
+  /* Masthead top rule: two clean items, never breaking a phrase across lines */
+  .mast-rule { font-size: 0.55rem; letter-spacing: 0.15em; gap: 0.5rem; }
+  .mast-meta { white-space: nowrap; }
+  .mast-meta--dot,
+  .mast-rule > .mast-meta:nth-of-type(3) { display: none; }  /* hide "· A SARTORIAL INSTRUMENT" */
+
+  /* Footer stacks cleanly instead of cramped space-between */
+  .colophon { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+
+  /* Roomier tap targets */
+  .btn { padding: 1rem 1.8rem; }
+  .mode { padding: 0.9rem 0.9rem 1.1rem; }
+}
